@@ -1,6 +1,7 @@
 package com.sabancidx.productapi.repository;
 
 import com.sabancidx.productapi.entity.Product;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,13 +11,21 @@ import java.util.Optional;
 
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query("SELECT p FROM Product p WHERE p.name = :name")
+    @Query("SELECT p FROM Product p WHERE p.name = :name AND p.deleted = false")
+    @NotNull
     Product findByName(String name);
-    @Query("SELECT p FROM Product p WHERE p.brand = :brand")
+    @Query("SELECT p FROM Product p WHERE p.brand = :brand AND p.deleted = false")
+    @NotNull
     List<Product> findByBrand(String brand);
-    @Query("SELECT p FROM Product p WHERE p.code = :code")
+    @Query("SELECT p FROM Product p WHERE p.deleted = false AND p.code = :code")
+    @NotNull
     Product findByCode(int code);
-    @Query("SELECT p FROM Product p WHERE p.price BETWEEN :minprice AND :maxprice")
+    @Query("SELECT p FROM Product p WHERE p.deleted =false AND p.price BETWEEN :minprice AND :maxprice")
+    @NotNull
     List<Product> findByPriceBetween(@Param("minprice") double minPrice, @Param("maxprice") double maxPrice);
+
+    @Query("SELECT p FROM Product p WHERE p.deleted =false")
+    @NotNull
+    List<Product> findAll();
 
 }
