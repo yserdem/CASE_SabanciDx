@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "users", schema = "sabanciDx")
+@Table(name = "users", schema = "sabancidx")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", schema = "sabanciDx",
+    @JoinTable(name = "user_roles", schema = "sabancidx",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Roles> authorities = new HashSet<>();
+    private Set<Role> authorities = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

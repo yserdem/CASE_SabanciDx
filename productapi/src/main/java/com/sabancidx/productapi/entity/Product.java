@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "products", schema = "sabanciDx")
-public class Products {
+@Table(name = "products", schema = "sabancidx")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,8 +33,11 @@ public class Products {
     private CurrencyEnum currency;
 
     @Column(name = "price")
-    private int price;
+    private double price;
 
     @Column(name = "stock")
     private boolean stock;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 }
