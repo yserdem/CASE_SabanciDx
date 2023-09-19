@@ -1,5 +1,6 @@
 package com.sabancidx.productapi.controller;
 
+import com.sabancidx.productapi.dto.PriceRangeRequest;
 import com.sabancidx.productapi.entity.Product;
 import com.sabancidx.productapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +44,15 @@ public class ProductController {
         return productService.findByBrand(brand);
     }
 
-    @GetMapping("/findByPriceRange")
-    public List<Product> getProductsByPriceRange(@RequestParam double minPrice, @RequestParam double maxPrice) {
-        return productService.findByPriceRange(minPrice, maxPrice);
+    @PostMapping("/findByPriceRange")
+    public List<Product> getProductsByPriceRange(@RequestBody PriceRangeRequest priceRangeRequest) {
+        return productService.findByPriceRange(priceRangeRequest.getMinprice(), priceRangeRequest.getMaxprice());
     }
 
-    @PutMapping("/update")
-    public Product updateProduct(@RequestBody Product product) {
-        return productService.updateProduct(product);
+    @PutMapping("/update/{name}")
+    public Product updateProduct(@PathVariable String name, @RequestBody Product product) {
+        Product newProduct = new Product();
+        return productService.findByName(name).;
     }
 
     @DeleteMapping("/{id}")

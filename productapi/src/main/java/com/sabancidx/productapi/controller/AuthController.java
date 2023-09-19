@@ -1,5 +1,7 @@
 package com.sabancidx.productapi.controller;
 
+import com.sabancidx.productapi.dto.LoginRequest;
+import com.sabancidx.productapi.dto.LoginResponse;
 import com.sabancidx.productapi.dto.RegistrationUser;
 import com.sabancidx.productapi.entity.User;
 import com.sabancidx.productapi.service.AuthService;
@@ -22,5 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     public User register(@RequestBody @NotNull RegistrationUser registrationUser) {
         return authService.register(registrationUser.getEmail(), registrationUser.getPassword());
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody @NotNull LoginRequest loginRequest) {
+        return authService.login(loginRequest.getEmail(), loginRequest.getPassword());
     }
 }
